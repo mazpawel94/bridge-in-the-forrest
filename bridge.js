@@ -17,7 +17,6 @@ const createColumn = (x, z, height) => {
 
 
 const createSlab = (x, z, width, length, height) => {
-    console.log(x, z, width, length, height);
     const slabGeometry = new THREE.BoxGeometry(width, length, 3);
     const slabMaterial = new THREE.MeshStandardMaterial({
         color: 0x777777,
@@ -29,32 +28,50 @@ const createSlab = (x, z, width, length, height) => {
     slab.position.x = x;
     slab.position.z = z;
     slab.rotation.x = 3.14159265358979 / 2;
+    slab.add(createRamp(width, length, height, 1)); //czwarty parametr odpowiada za umieszczenie podjazdu z przodu lub tyłu płyty głównej
+    slab.add(createRamp(width, length, height, -1));
     return slab;
 }
 
-const createBridge = (height, length, width) => {
-    console.log(height, length, width);
+const createRamp = (width, length, height, front) => {
+
+    const rampGeometry = new THREE.BoxGeometry(width, height * 1.5, 3);
+    const rampMaterial = new THREE.MeshStandardMaterial({
+        color: 0x777777,
+        flatShading: true,
+        side: THREE.DoubleSide
+    });
+    const rampY = front * (length / 2 + height / 2);
+    const rampZ = height / 2;
+    const ramp = new THREE.Mesh(rampGeometry, rampMaterial);
+    ramp.position.set(0, rampY, rampZ);
+    ramp.rotation.x = front * (Math.PI / 4);
+    ramp.rotation.y = Math.PI;
+    return ramp;
+}
+
+const createBridge = (height, width, length) => {
     bridge = new THREE.Group();
     bridge.add(createColumn(coordinateX, coordinateZ, height));
     bridge.add(
-        createColumn(coordinateX + length, coordinateZ, height)
+        createColumn(coordinateX + width, coordinateZ, height)
     );
     bridge.add(
         createColumn(
-            coordinateX + length,
-            coordinateZ + width,
+            coordinateX + width,
+            coordinateZ + length,
             height
         )
     );
     bridge.add(
-        createColumn(coordinateX, coordinateZ + width, height)
+        createColumn(coordinateX, coordinateZ + length, height)
     );
     bridge.add(
         createSlab(
-            (coordinateX + coordinateX + length) / 2,
-            (coordinateZ * 2 + width) / 2,
-            length + 8,
+            (coordinateX + coordinateX + width) / 2,
+            (coordinateZ * 2 + length) / 2,
             width + 8,
+            length + 8,
             height
         )
     );
