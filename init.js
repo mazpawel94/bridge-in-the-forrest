@@ -8,7 +8,8 @@ const colors = {
     wood: 0x8b5a2b,
     leaves: 0x1c4502,
     forrest: 0x1c4552,
-    bridge: 0x777777
+    bridge: 0x777777,
+    water: 0x60AEC4
 };
 const FORREST_WIDTH = 2000;
 
@@ -56,7 +57,7 @@ forrest.rotation.x = Math.PI / 2;
 forrest.receiveShadow = true;
 scene.fog = new THREE.Fog(0x2286e8, 1, 800);
 scene.add(forrest);
-
+scene.add(createRiver());
 createTrees(350);
 createBridge(30, 15, 155);
 

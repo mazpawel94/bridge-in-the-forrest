@@ -1,5 +1,5 @@
 const coordinateX = 20;
-const coordinateZ = 10;
+const coordinateZ = -150;
 
 const createColumn = (x, z, height) => {
     const columnGeometry = new THREE.CylinderGeometry(4, 4, height, 4);
