@@ -21,11 +21,13 @@ window.addEventListener("mouseup", e => {
 window.addEventListener("wheel", e => {
     const sign = Math.sign(e.deltaY);
     camera.position.z += sign * 10;
+    camera.position.y += sign * 10;
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
 });
 
 window.addEventListener("mousemove", e => {
+    if (e.target.nodeName === "LABEL" || e.target.nodeName === "INPUT") return;
     if (active) {
         deltaY = e.clientY - clientY;
         deltaX = e.clientX - clientX;
@@ -46,4 +48,22 @@ window.addEventListener("resize", () => {
     camera.position.set(80, 100, 25);
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
+});
+
+rebuildBridge = () => {
+    scene.remove(bridge);
+    createBridge(bridgeHeight, bridgeWidth, bridgeLenght);
+    renderer.render(scene, camera);
+}
+document.getElementById('height').addEventListener("input", e => {
+    bridgeHeight = parseInt(e.target.value);
+    rebuildBridge();
+});
+document.getElementById('width').addEventListener("input", e => {
+    bridgeWidth = parseInt(e.target.value);
+    rebuildBridge();
+});
+document.getElementById('length').addEventListener("input", e => {
+    bridgeLenght = parseInt(e.target.value);
+    rebuildBridge();
 });

@@ -17,6 +17,7 @@ const createColumn = (x, z, height) => {
 
 
 const createSlab = (x, z, width, length, height) => {
+    console.log(x, z, width, length, height);
     const slabGeometry = new THREE.BoxGeometry(width, length, 3);
     const slabMaterial = new THREE.MeshStandardMaterial({
         color: 0x777777,
@@ -32,21 +33,23 @@ const createSlab = (x, z, width, length, height) => {
 }
 
 const createBridge = (height, length, width) => {
-    scene.add(createColumn(coordinateX, coordinateZ, height));
-    scene.add(
+    console.log(height, length, width);
+    bridge = new THREE.Group();
+    bridge.add(createColumn(coordinateX, coordinateZ, height));
+    bridge.add(
         createColumn(coordinateX + length, coordinateZ, height)
     );
-    scene.add(
+    bridge.add(
         createColumn(
             coordinateX + length,
             coordinateZ + width,
             height
         )
     );
-    scene.add(
+    bridge.add(
         createColumn(coordinateX, coordinateZ + width, height)
     );
-    scene.add(
+    bridge.add(
         createSlab(
             (coordinateX + coordinateX + length) / 2,
             (coordinateZ * 2 + width) / 2,
@@ -55,4 +58,5 @@ const createBridge = (height, length, width) => {
             height
         )
     );
+    scene.add(bridge);
 }

@@ -12,6 +12,8 @@ const colors = {
     water: 0x60AEC4
 };
 const FORREST_WIDTH = 2000;
+let bridge;
+let amountTrees = 350, bridgeWidth = 15, bridgeHeight = 30, bridgeLenght = 155;
 
 const scene = new THREE.Scene();
 
@@ -59,6 +61,6 @@ scene.fog = new THREE.Fog(0x2286e8, 1, 800);
 scene.add(forrest);
 scene.add(createRiver());
 createTrees(350);
-createBridge(30, 15, 155);
+createBridge(bridgeHeight, bridgeWidth, bridgeLenght);
 
 renderer.render(scene, camera);
