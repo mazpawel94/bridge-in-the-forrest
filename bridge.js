@@ -1,5 +1,5 @@
-const coordinateX = 20;
-const coordinateZ = -150;
+const coordinateX = 0;
+const coordinateZ = 0;
 
 const createColumn = (x, z, height) => {
     const columnGeometry = new THREE.CylinderGeometry(4, 4, height, 4);
@@ -27,7 +27,7 @@ const createSlab = (x, z, width, length, height) => {
     slab.position.y = height;
     slab.position.x = x;
     slab.position.z = z;
-    slab.rotation.x = 3.14159265358979 / 2;
+    slab.rotation.x = Math.PI / 2;
     slab.add(createRamp(width, length, height, 1)); //czwarty parametr odpowiada za umieszczenie podjazdu z przodu lub tyłu płyty głównej
     slab.add(createRamp(width, length, height, -1));
     return slab;
@@ -50,7 +50,25 @@ const createRamp = (width, length, height, front) => {
     return ramp;
 }
 
-const createBridge = (height, width, length) => {
+const createSpan = (width, length, height, i) => {
+
+    const position = i / (spansAmount + 1);
+    const spanGeometry = new THREE.BoxGeometry(width, 3, height);
+    const spanMaterial = new THREE.MeshStandardMaterial({
+        color: 0x777777,
+        flatShading: true,
+        side: THREE.DoubleSide
+    });
+    const span = new THREE.Mesh(spanGeometry, spanMaterial);
+    span.rotation.x = Math.PI / 2;
+    span.position.x = width / 2;
+    span.position.y = height / 2;
+    span.position.z = length * position;
+    console.log(span.position.y)
+    return span;
+}
+
+const createBridge = (height, width, length, spansAmount) => {
     bridge = new THREE.Group();
     bridge.add(createColumn(coordinateX, coordinateZ, height));
     bridge.add(
@@ -75,5 +93,7 @@ const createBridge = (height, width, length) => {
             height
         )
     );
+    for (let i = 1; i <= spansAmount; i++)
+        bridge.add(createSpan(width, length, height, i));
     scene.add(bridge);
 }

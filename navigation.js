@@ -52,7 +52,7 @@ window.addEventListener("resize", () => {
 
 rebuildBridge = () => {
     scene.remove(bridge);
-    createBridge(bridgeHeight, bridgeWidth, bridgeLenght);
+    createBridge(bridgeHeight, bridgeWidth, bridgeLenght, spansAmount);
     renderer.render(scene, camera);
 }
 document.getElementById('height').addEventListener("input", e => {
@@ -65,5 +65,9 @@ document.getElementById('width').addEventListener("input", e => {
 });
 document.getElementById('length').addEventListener("input", e => {
     bridgeLenght = parseInt(e.target.value);
+    rebuildBridge();
+});
+document.getElementById('spans').addEventListener("input", e => {
+    spansAmount = parseInt(e.target.value);
     rebuildBridge();
 });

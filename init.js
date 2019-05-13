@@ -13,7 +13,7 @@ const colors = {
 };
 const FORREST_WIDTH = 2000;
 let bridge;
-let amountTrees = 350, bridgeWidth = 15, bridgeHeight = 30, bridgeLenght = 155;
+let amountTrees = 350, bridgeWidth = 15, bridgeHeight = 30, bridgeLenght = 75, spansAmount = 1;
 
 const scene = new THREE.Scene();
 
@@ -23,8 +23,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.set(0, 20, 100);
-
+camera.position.set(-40, 10, 100);
 const globalLight = new THREE.AmbientLight(0xffffff, 0.1);
 const shadowLight = new THREE.DirectionalLight(0xffffff);
 shadowLight.position.set(10, 10, 10).normalize();
@@ -61,6 +60,6 @@ scene.fog = new THREE.Fog(0x2286e8, 1, 800);
 scene.add(forrest);
 scene.add(createRiver());
 createTrees(350);
-createBridge(bridgeHeight, bridgeWidth, bridgeLenght);
+createBridge(bridgeHeight, bridgeWidth, bridgeLenght, spansAmount);
 
 renderer.render(scene, camera);

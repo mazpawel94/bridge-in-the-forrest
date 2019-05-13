@@ -20,7 +20,7 @@ createRiver = () => {
     const material = new THREE.MeshBasicMaterial({ color: colors.water });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.rotation.x = Math.PI / 2;
-    mesh.position.set(-1000, -15, 0);
+    mesh.position.set(-1000, -15, 120);
     return mesh;
 }
 
