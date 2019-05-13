@@ -64,7 +64,6 @@ const createSpan = (width, length, height, i) => {
     span.position.x = width / 2;
     span.position.y = height / 2;
     span.position.z = length * position;
-    console.log(span.position.y)
     return span;
 }
 
@@ -96,4 +95,11 @@ const createBridge = (height, width, length, spansAmount) => {
     for (let i = 1; i <= spansAmount; i++)
         bridge.add(createSpan(width, length, height, i));
     scene.add(bridge);
+}
+
+
+rebuildBridge = () => {
+    scene.remove(bridge);
+    createBridge(bridgeHeight, bridgeWidth, bridgeLenght, spansAmount);
+    renderer.render(scene, camera);
 }

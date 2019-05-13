@@ -1,3 +1,19 @@
+const trees = [];
+
+
+const canGrow = (x, z) => {
+
+    if (x > 0 && x < bridgeWidth && z > 0 && z < bridgeLenght)
+        return false;
+    for (tree of trees) {
+        if (Math.abs(tree.x - x) <= 5 && Math.abs(tree.z - z) <= 5) {
+            console.log("drzewo rośnie w drzewie");
+            return false;
+        }
+    }
+    return true;
+};
+
 const createTreeCrown = (x, z) => {
     let crownGeometry;
     if (x % 2 === 0)
@@ -28,8 +44,11 @@ const createTreeTrunk = (x, z) => {
 };
 
 const createTree = (x, z) => {
-    createTreeTrunk(x, z);
-    createTreeCrown(x, z);
+    if (canGrow(x, z)) {
+        createTreeTrunk(x, z);
+        createTreeCrown(x, z);
+        trees.push({ x: x, z: z });
+    }
 };
 
 const createTrees = amout => {

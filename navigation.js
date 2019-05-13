@@ -50,11 +50,6 @@ window.addEventListener("resize", () => {
     renderer.render(scene, camera);
 });
 
-rebuildBridge = () => {
-    scene.remove(bridge);
-    createBridge(bridgeHeight, bridgeWidth, bridgeLenght, spansAmount);
-    renderer.render(scene, camera);
-}
 document.getElementById('height').addEventListener("input", e => {
     bridgeHeight = parseInt(e.target.value);
     rebuildBridge();
